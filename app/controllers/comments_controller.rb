@@ -21,9 +21,11 @@ class CommentsController < ApplicationController
 
   # POST /comments
   def create
+    @post = Post.find(params[:post_id])
     @comment = Comment.new(comment_params)
+    @comment.post = @post
     if @comment.save
-      redirect_to @comment, notice: 'Comment was successfully created.'
+      redirect_to @post, notice: 'Comment was successfully created.'
     else
       render :new
     end
@@ -33,7 +35,7 @@ class CommentsController < ApplicationController
 
   def update
     if @comment.update(comment_params)
-        redirect_to @comment, notice: 'Comment was successfully updated.'
+        redirect_to @post, notice: 'Comment was successfully updated.'
     else
       render :edit
     end
@@ -42,7 +44,7 @@ class CommentsController < ApplicationController
   # DELETE /comments/1
   def destroy
     @comment.destroy
-    redirect_to comments_url, notice: 'Comment was successfully destroyed.'
+    redirect_to @comment.post, notice: 'Comment was successfully destroyed.'
   end
 
   private
