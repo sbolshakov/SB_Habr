@@ -46,12 +46,17 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="/">SbHabr</a>
-        <div class="navbar-collapse collapse navbar-responsive-collapse">
-          <ul class="nav navbar-nav">
-            <!--<li><%= link_to "Link1", "/path1"  %></li>-->
-            <!--<li><%= link_to "Link2", "/path2"  %></li>-->
-            <!--<li><%= link_to "Link3", "/path3"  %></li>-->
-          </ul>
+        <div class="col-lg-3 col-lg-push-9 navbar-collapse collapse navbar-responsive-collapse">
+            <% if user_signed_in? %>
+                 <ul class="nav navbar-nav">
+                     <li><%= link_to current_user.email, destroy_user_session_path, method: :delete %></li>
+                     <li><%= link_to "Выйти", destroy_user_session_path, method: :delete  %></li>
+                 </ul>
+            <% else %>
+                 <ul class="nav navbar-nav">
+                     <li><%= link_to "Войти", new_user_session_path %></li>
+                 </ul>
+            <% end %>
         </div>
       </div>
     </div>

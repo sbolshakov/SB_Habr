@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
+  before_action :check_owner, only: [:edit, :destroy]
 
   # GET /comments
   def index
@@ -22,8 +23,8 @@ class CommentsController < ApplicationController
   # POST /comments
   def create
     @post = Post.find(params[:post_id])
-    @comment = Comment.new(comment_params)
-    @comment.post = @post
+    @comment = @post.comments.new(comment_params)
+    @comment.user = current_user
     if @comment.save
       redirect_to @post, notice: 'Comment was successfully created.'
     else
@@ -35,7 +36,7 @@ class CommentsController < ApplicationController
 
   def update
     if @comment.update(comment_params)
-        redirect_to @post, notice: 'Comment was successfully updated.'
+        redirect_to @comment.post, notice: 'Comment was successfully updated.'
     else
       render :edit
     end
@@ -56,5 +57,11 @@ class CommentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
       params.require(:comment).permit(:body)
+    end
+
+    def check_owner
+      unless @comment.user == current_user
+        redirect_to posts_path, alert: 'У вас нет прав на выполнение этого действия!'
+      end
     end
 end

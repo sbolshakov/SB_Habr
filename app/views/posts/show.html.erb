@@ -1,7 +1,13 @@
-<p id="notice"><%= notice %></p>
 
 <h2> <%= @post.title %></h2>
 <%= render @post.categories %>
+
+<% if @post.user.present? %>
+    <p>
+      <strong>Автор: </strong>
+      <%= @post.user.email %>
+    </p>
+<% end %>
 <p>
   <%= @post.body %>
 </p>
@@ -9,8 +15,19 @@
 <% unless @post.comments.empty? %>
     <strong><%= 'Комментарии ('+@post.comments.count.to_s+')'%></strong>
     <% @post.comments.each do |comment| %>
+        <% if comment.user.present? %>
+            <p>
+              <strong>Автор: </strong>
+              <%= comment.user.email %>
+            </p>
+        <% end %>
         <p><%= comment.body %></p>
-        <p><%= link_to "Удалить", comment, method: :delete %></p>
+        <% if comment.user == current_user %>
+            <p>
+              <%= link_to "Удалить", comment, method: :delete, data: { confirm: 'Вы уверены?' } %> |
+              <%= link_to "Редактировать", edit_comment_path(comment) %>
+            </p>
+        <% end %>
     <% end %>
     <strong>Новый комментарий:</strong>
 <% else %>
@@ -20,5 +37,9 @@
 
 <%= render 'comments/form' %>
 
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
+<% if @post.user == current_user %>
+    <%= link_to 'Редактировать', edit_post_path(@post) %> |
+    <%= link_to "Удалить", @post, method: :delete, data: { confirm: 'Вы уверены?' } %>
+<% end %>
+
+    <p><%= link_to 'К списку публикаций', posts_path %></p>
