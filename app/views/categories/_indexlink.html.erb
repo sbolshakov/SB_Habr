@@ -1,5 +1,7 @@
-<% Category.all.each do |category| %>
-      <%= link_to category.name, category %><br>
-<% end %>
-<hr>
-<%= link_to 'Все категории', posts_path %>
+<ul class="nav">
+    <% Category.all.each do |category| %>
+      <li><%= link_to category.name, category %></li>
+    <% end %>
+    <hr>
+    <li><%= link_to 'Все категории', posts_path %></li>
+</ul>
