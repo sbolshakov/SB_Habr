@@ -47,13 +47,13 @@
         </button>
         <a class="navbar-brand" href="/">SbHabr</a>
         <div class="col-lg-9 navbar-collapse collapse navbar-responsive-collapse">
-          <% if user_signed_in? && current_user.admin? %>
               <ul class="nav navbar-nav">
                 <li><%= link_to "Админка", admin_welcome_path %></li>
+                <li><%= link_to "Категории", admin_categories_path %></li>
+                <li><%= link_to "Пользователи", admin_users_path %></li>
               </ul>
-          <% end %>
         </div>
-        <div class="col-lg-3 col-lg-push-9 navbar-collapse collapse navbar-responsive-collapse">
+        <div class="col-lg-3 col-lg-push-7 navbar-collapse collapse navbar-responsive-collapse">
             <% if user_signed_in? %>
                  <ul class="nav navbar-nav">
                      <li><%= link_to current_user.email, destroy_user_session_path, method: :delete %></li>
@@ -74,12 +74,6 @@
           <%= bootstrap_flash %>
           <%= yield %>
         </div>
-        <div class="col-lg-3">
-          <div class="well sidebar-nav">
-            <h3>Список категорий</h3>
-            <%= render "categories/indexlink" %>
-          </div><!--/.well -->
-        </div><!--/span-->
       </div><!--/row-->
 
       <footer>

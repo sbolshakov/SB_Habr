@@ -4,7 +4,14 @@ Rails.application.routes.draw do
     resources :comments, shallow: true
   #  resources :categories, shallow: true
   end
-  resources :categories
+  resources :categories, only: [:show]
+
+
+  namespace :admin do
+    resources :categories
+    resources :users
+    get 'welcome', to: 'welcome#index'
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

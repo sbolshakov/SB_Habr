@@ -22,7 +22,7 @@
             </p>
         <% end %>
         <p><%= comment.body %></p>
-        <% if user_signed_in? && current_user.owner_of?(@comment) %>
+        <% if user_signed_in? && current_user.owner_of?(comment) %>
             <p>
               <%= link_to "Удалить", comment, method: :delete, data: { confirm: 'Вы уверены?' } %> |
               <%= link_to "Редактировать", edit_comment_path(comment) %>
