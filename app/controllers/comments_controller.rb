@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
-  before_action :check_owner, only: [:edit, :destroy]
+  before_action :check_owner, only: [:edit, :update, :destroy]
 
   # GET /comments
   def index
@@ -60,7 +61,7 @@ class CommentsController < ApplicationController
     end
 
     def check_owner
-      unless @comment.user == current_user
+      unless current_user.owner_of(@comment)
         redirect_to posts_path, alert: 'У вас нет прав на выполнение этого действия!'
       end
     end

@@ -22,7 +22,7 @@
             </p>
         <% end %>
         <p><%= comment.body %></p>
-        <% if comment.user == current_user %>
+        <% if user_signed_in? && current_user.owner_of?(@comment) %>
             <p>
               <%= link_to "Удалить", comment, method: :delete, data: { confirm: 'Вы уверены?' } %> |
               <%= link_to "Редактировать", edit_comment_path(comment) %>
@@ -37,7 +37,7 @@
 
 <%= render 'comments/form' %>
 
-<% if @post.user == current_user %>
+<% if user_signed_in? && current_user.owner_of?(@post) %> <!-- сравниваем поле user_id из @post, чтобы избежать загрузки объекта user для него --!>
     <%= link_to 'Редактировать', edit_post_path(@post) %> |
     <%= link_to "Удалить", @post, method: :delete, data: { confirm: 'Вы уверены?' } %>
 <% end %>

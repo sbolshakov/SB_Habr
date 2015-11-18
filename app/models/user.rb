@@ -8,4 +8,10 @@ class User < ActiveRecord::Base
   has_many :posts
   has_many :comments
 
+  def owner_of?(object)
+    # Сравниваем поле user_id объекта с полем id пользователя чтобы избежать загрузки
+    # пользователя для объекта из базы
+    id == object.user_id
+  end
+
 end

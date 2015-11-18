@@ -7,7 +7,7 @@ class Post < ActiveRecord::Base
   has_many :tags, through: :tags_posts
   belongs_to :user
 
-  validates :title, :body, presence: true
+  validates :title, :body, :user_id, presence: true
 
 
 
