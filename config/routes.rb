@@ -1,6 +1,14 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :posts do
+    get :drafts, on: :collection
+    get :pending, on: :collection
+    patch :publish, on: :member
+    patch :unpublish, on: :member
+    patch :approve, on: :member
+    patch :reject, on: :member
+    patch :subscribe, on: :member
+    patch :unsubscribe, on: :member
     resources :comments, shallow: true
   #  resources :categories, shallow: true
   end

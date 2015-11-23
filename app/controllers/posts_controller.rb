@@ -1,11 +1,60 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_action :check_owner, only: [:edit, :update, :destroy]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :publish, :unpublish, :approve,
+                                  :reject, :subscribe, :unsubscribe]
+  before_action :check_owner, only: [:edit, :update, :destroy, :publish, :unpublish, :approve, :reject]
 
   # GET /posts
   def index
-    @posts = Post.all
+    @posts = Post.approved.all
+  end
+
+  def drafts
+    unless current_user.admin?
+      @posts = Post.draft.where(user_id: current_user.id)
+    else
+      @posts = Post.draft.all
+    end
+  end
+
+  def pending
+    unless current_user.admin?
+      @posts = Post.pending.where(user_id: current_user.id)
+    else
+      @posts = Post.pending.all
+    end
+  end
+
+  def publish
+    @post.pending!
+    redirect_to posts_url, notice: 'Отправлено на модерирование.'
+  end
+
+  def unpublish
+    @post.draft!
+    redirect_to drafts_posts_url, notice: 'Перемещен в черновики.'
+  end
+
+  def reject
+    @post.draft!
+    NotificationMailer.post_rejected_notification(@post).deliver_now
+    redirect_to pending_posts_url, notice: 'Публикация отклонена.'
+  end
+
+  def approve
+    @post.approved!
+    NotificationMailer.post_approved_notification(@post).deliver_now
+    redirect_to pending_posts_url, notice: 'Публикация одобрена.'
+  end
+
+  def subscribe
+    @post.subscribers << current_user unless @post.subscribers.include?(current_user)
+    redirect_to @post, notice: 'Вы успешно подписались на комментарии.'
+  end
+
+  def unsubscribe
+    @post.subscribers.delete(current_user)
+    redirect_to @post, notice: 'Вы успешно отписались от комментариев.'
   end
 
   # GET /posts/1
@@ -25,8 +74,8 @@ class PostsController < ApplicationController
   # POST /posts
   def create
     @post = current_user.posts.new(post_params)
-
     if @post.save
+      @post.subscribers << current_user # unless @post.subscribers.include?(current_user)
       redirect_to @post, notice: 'Post was successfully created.'
     else
       render :new
@@ -36,6 +85,7 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1
   def update
     if @post.update(post_params)
+      @post.draft!
       redirect_to @post, notice: 'Post was successfully updated.'
     else
       render :edit

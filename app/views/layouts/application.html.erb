@@ -47,13 +47,20 @@
         </button>
         <a class="navbar-brand" href="/">SbHabr</a>
         <div class="col-lg-9 navbar-collapse collapse navbar-responsive-collapse">
-          <% if user_signed_in? && current_user.admin? %>
-              <ul class="nav navbar-nav">
-                <li><%= link_to "Админка", admin_welcome_path %></li>
-              </ul>
-          <% end %>
+          <ul class="nav navbar-nav">
+            <li><%= link_to "Список публикаций", posts_path %></li>
+            <li><%= link_to "Список черновиков", drafts_posts_path %></li>
+            <% if user_signed_in? && !current_user.admin? %>
+                <li><%= link_to "На модерации", pending_posts_path %></li>
+            <% end %>
+            <% if user_signed_in? && current_user.admin? %>
+                <li><%= link_to "Админка", admin_welcome_path %>
+                <li><%= link_to "Модерирование", pending_posts_path %></li>
+            <% end %>
+          </ul>
+
         </div>
-        <div class="col-lg-3 col-lg-push-9 navbar-collapse collapse navbar-responsive-collapse">
+        <div class="col-lg-3 col-lg-push-5 navbar-collapse collapse navbar-responsive-collapse">
             <% if user_signed_in? %>
                  <ul class="nav navbar-nav">
                      <li><%= link_to current_user.email, destroy_user_session_path, method: :delete %></li>

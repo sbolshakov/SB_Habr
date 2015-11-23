@@ -1,0 +1,51 @@
+<% if user_signed_in? %>
+    <% unless @post.comments.empty? %>
+        <strong><%= 'Комментарии ('+@post.comments.count.to_s+')'%></strong>
+        <% @post.comments.each do |comment| %>
+            <% if comment.user.present? %>
+                <p>
+                  <strong>Автор: </strong>
+                  <%= comment.user.email %>
+                </p>
+            <% end %>
+            <p><%= comment.body %></p>
+            <% if user_signed_in? && current_user.owner_of?(comment) %>
+                <p>
+                  <%= link_to "Удалить", comment, method: :delete, data: { confirm: 'Вы уверены?' } %> |
+                  <%= link_to "Редактировать", edit_comment_path(comment) %>
+                </p>
+            <% end %>
+        <% end %>
+        <strong>Новый комментарий:</strong>
+    <% else %>
+        <strong>Комментариев пока нет. Оставьте комментарий первым</strong>
+        <br>
+    <% end %>
+
+    <%= render 'comments/form' %>
+
+<% else %>
+
+    <% unless @post.comments.empty? %>
+        <strong><%= 'Комментарии ('+@post.comments.count.to_s+')'%></strong>
+        <% @post.comments.each do |comment| %>
+            <% if comment.user.present? %>
+                <p>
+                  <strong>Автор: </strong>
+                  <%= comment.user.email %>
+                </p>
+            <% end %>
+            <p><%= comment.body %></p>
+            <% if user_signed_in? && current_user.owner_of?(comment) %>
+                <p>
+                  <%= link_to "Удалить", comment, method: :delete, data: { confirm: 'Вы уверены?' } %> |
+                  <%= link_to "Редактировать", edit_comment_path(comment) %>
+                </p>
+            <% end %>
+        <% end %>
+    <% else%>
+        <strong>Комментариев пока нет.</strong>
+        <br>
+    <% end %>
+
+<% end %>

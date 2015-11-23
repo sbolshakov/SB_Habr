@@ -8,9 +8,11 @@
   <% end %>
 </h1>
 
-<%= render @posts %>
+<% if @posts %>
+    <%= render @posts %>
+<% end %>
 
 <br>
 
-<%= link_to 'Новая публикация', new_post_path, class: 'btn btn-large' %>
+<%= link_to 'Новая публикация', new_post_path, class: 'btn btn-large' if user_signed_in?  %>
 

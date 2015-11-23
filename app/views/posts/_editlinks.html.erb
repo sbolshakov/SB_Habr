@@ -1,0 +1,21 @@
+<% if post.pending? && current_user.admin? %>
+    <%= link_to 'Одобрить и опубликовать', approve_post_path(post.id), method: :patch %> |
+    <%= link_to 'Отклонить', reject_post_path(post.id), method: :patch %> |
+<% elsif user_signed_in? && current_user.owner_of?(post) %>
+    <%= link_to 'Редактировать', edit_post_path(post) %> |
+    <%= link_to "Удалить", post, method: :delete, data: { confirm: 'Вы уверены?' } %> |
+    <%if post.approved? %>
+        <%= link_to 'Переместить в черновики', unpublish_post_path(post.id), method: :patch %>
+    <% elsif post.draft? %>
+        <%= link_to 'Отправить на модерацию', publish_post_path(post.id), method: :patch %>
+    <% end %>
+<% end %>
+<br>
+<% if user_signed_in? %>
+    <% if !post.subscribers.include?(current_user) %>
+        <%= link_to 'Подписаться на комментарии', subscribe_post_path(post.id), method: :patch %>
+    <% else %>
+        <%= link_to 'Отписаться от комментариев', unsubscribe_post_path(post.id), method: :patch %>
+    <% end %>
+<% end %>
+

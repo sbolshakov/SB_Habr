@@ -1,0 +1,13 @@
+
+
+<h1>Список публикаций, находящихся на модерации</h1>
+
+<% if @posts %>
+    <%= render @posts %>
+<% end %>
+
+<br>
+
+<%= link_to 'Новая публикация', new_post_path, class: 'btn btn-large' %>
+
+
