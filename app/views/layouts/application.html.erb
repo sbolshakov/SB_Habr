@@ -55,7 +55,6 @@
             <% end %>
             <% if user_signed_in? && current_user.admin? %>
                 <li><%= link_to "Админка", admin_welcome_path %>
-                <li><%= link_to "Модерирование", pending_posts_path %></li>
             <% end %>
           </ul>
 

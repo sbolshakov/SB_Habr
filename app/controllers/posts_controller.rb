@@ -53,7 +53,7 @@ class PostsController < ApplicationController
   end
 
   def unsubscribe
-    @post.subscribers.delete(current_user)
+    @post.subscribers.delete(current_user) unless !@post.subscribers.include?(current_user)
     redirect_to @post, notice: 'Вы успешно отписались от комментариев.'
   end
 
