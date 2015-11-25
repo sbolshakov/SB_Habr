@@ -1,24 +1,24 @@
 <% if user_signed_in? %>
     <% unless @post.comments.empty? %>
-        <strong><%= 'Комментарии ('+@post.comments.count.to_s+')'%></strong>
+        <strong><%= t('common.comments')+' ('+@post.comments.count.to_s+')'%></strong>
         <% @post.comments.each do |comment| %>
             <% if comment.user.present? %>
                 <p>
-                  <strong>Автор: </strong>
+                  <strong><%= t('.author')%>:</strong>
                   <%= comment.user.email %>
                 </p>
             <% end %>
             <p><%= comment.body %></p>
             <% if user_signed_in? && current_user.owner_of?(comment) %>
                 <p>
-                  <%= link_to "Удалить", comment, method: :delete, data: { confirm: 'Вы уверены?' } %> |
-                  <%= link_to "Редактировать", edit_comment_path(comment) %>
+                  <%= link_to t('common.delete'), comment, method: :delete, data: { confirm: t('common.confirm') } %> |
+                  <%= link_to t('common.edit'), edit_comment_path(comment) %>
                 </p>
             <% end %>
         <% end %>
-        <strong>Новый комментарий:</strong>
+        <strong><%= t('common.new_comment') %></strong>
     <% else %>
-        <strong>Комментариев пока нет. Оставьте комментарий первым</strong>
+        <strong><%= t('.no_comments')+' '+t('.leave_first_comment') %></strong>
         <br>
     <% end %>
 
@@ -27,24 +27,24 @@
 <% else %>
 
     <% unless @post.comments.empty? %>
-        <strong><%= 'Комментарии ('+@post.comments.count.to_s+')'%></strong>
+        <strong><%=t('common.comments')+' ('+@post.comments.count.to_s+')'%></strong>
         <% @post.comments.each do |comment| %>
             <% if comment.user.present? %>
                 <p>
-                  <strong>Автор: </strong>
+                  <strong><%= t('.author')%></strong>
                   <%= comment.user.email %>
                 </p>
             <% end %>
             <p><%= comment.body %></p>
             <% if user_signed_in? && current_user.owner_of?(comment) %>
                 <p>
-                  <%= link_to "Удалить", comment, method: :delete, data: { confirm: 'Вы уверены?' } %> |
-                  <%= link_to "Редактировать", edit_comment_path(comment) %>
+                  <%= link_to t('common.delete'), comment, method: :delete, data: { confirm: t('common.confirm') } %> |
+                  <%= link_to t('common.edit'), edit_comment_path(comment) %>
                 </p>
             <% end %>
         <% end %>
     <% else%>
-        <strong>Комментариев пока нет.</strong>
+        <strong><%= t('.no_comments')%></strong>
         <br>
     <% end %>
 

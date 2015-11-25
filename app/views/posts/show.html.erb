@@ -1,10 +1,9 @@
-
 <h2> <%= @post.title %></h2>
 <%= render @post.categories %>
 
 <% if @post.user.present? %>
     <p>
-      <strong>Автор: </strong>
+      <strong><%= t('common.author') %></strong>
       <%= @post.user.email %>
     </p>
 <% end %>
@@ -16,4 +15,3 @@
 
 <%= render 'editlinks', post: @post %>
 
-    <p><%= link_to 'К списку публикаций', posts_path %></p>

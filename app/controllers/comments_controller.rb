@@ -27,7 +27,7 @@ class CommentsController < ApplicationController
     @comment = @post.comments.new(comment_params)
     @comment.user = current_user
     if @comment.save
-      redirect_to @post, notice: 'Comment was successfully created.'
+      redirect_to @post, notice: t('comments.notices.created')
     else
       render :new
     end
@@ -37,7 +37,7 @@ class CommentsController < ApplicationController
 
   def update
     if @comment.update(comment_params)
-        redirect_to @comment.post, notice: 'Comment was successfully updated.'
+        redirect_to @comment.post, notice: t('comments.notices.updated')
     else
       render :edit
     end
@@ -46,7 +46,7 @@ class CommentsController < ApplicationController
   # DELETE /comments/1
   def destroy
     @comment.destroy
-    redirect_to @comment.post, notice: 'Comment was successfully destroyed.'
+    redirect_to @comment.post, notice: t('comments.notices.destroyed')
   end
 
   private
@@ -61,8 +61,8 @@ class CommentsController < ApplicationController
     end
 
     def check_owner
-      unless current_user.owner_of(@comment)
-        redirect_to posts_path, alert: 'У вас нет прав на выполнение этого действия!'
+      unless current_user.owner_of?(@comment)
+        redirect_to posts_path, alert: t('common.not_enough_rights')
       end
     end
 end

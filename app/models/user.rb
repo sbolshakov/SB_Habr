@@ -16,4 +16,16 @@ class User < ActiveRecord::Base
     id == object.user_id || admin?
   end
 
+  def subscription_for(post)
+    @subscription ||= subscriptions_posts.where(post: post).first
+  end
+
+  def subscribed_to?(post)
+    !!subscription_for(post)
+  end
+
+  def subscribe_to(post)
+    subscriptions << post
+  end
+
 end

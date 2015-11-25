@@ -1,0 +1,82 @@
+ru:
+  posts:
+    notices:
+      submit_to_moderator: 'Отправлено на модерирование.'
+      moved_to_drafts: 'Перемещен в черновики.'
+      created: 'Публикация успешно создана'
+      updated: 'Публикация успешно изменена'
+      destroyed: 'Публикация успешно удалена'
+
+    index:
+      title_w_category: 'Список публикаций категории'
+      title: 'Список публикаций'
+    editlinks:
+      approve: 'Одобрить и опубликовать'
+      reject: 'Отклонить'
+      move_to_drafts: 'Переместить в черновики'
+      send_for_moderation: 'Отправить на модерацию'
+      subscribe_to_comments: 'Подписаться на комментарии'
+      unsubscribe_from_comments: 'Отписаться от комментариев'
+    comments:
+      author: 'Автор'
+      no_comments: 'Комментариев пока нет.'
+      leave_first_comment: 'Оставьте комментарий первым.'
+    form:
+      categories: 'Категории'
+    post:
+      more: 'Читать далее'
+    drafts:
+      drafts: 'Список черновиков'
+    edit:
+      editing: 'Редактируем публикацию'
+    new:
+      new: 'Новая публикация'
+    pending:
+      list_of_pending: 'Список ваших публикаций, находящихся на модерации'
+
+
+  comments:
+    notices:
+      created: 'Комментарий успешно создан'
+      updated: 'Комментарий успешно изменен'
+      destroyed: 'Комментарий успешно удален'
+
+    edit:
+      editing: 'Редактируем комментарий'
+
+  categories:
+    indexlink:
+      all_categories: 'Все категории'
+
+  layouts:
+    application:
+      list_of_posts: 'Список публикаций'
+      list_of_drafts: 'Список черновиков'
+      list_of_pending: 'Список публикаций на модерации'
+      list_of_categories: 'Список категорий'
+      admin: 'Админка'
+
+    admin:
+      admin: 'Админка'
+      categories: 'Категории'
+      users: 'Пользователи'
+      moderator: 'Модерирование'
+
+
+
+  common:
+    new_post: 'Новая публикация'
+    new_comment: 'Новый комментарий'
+    edit: 'Редактировать'
+    delete: 'Удалить'
+    confirm: 'Вы уверены?'
+    not_enough_rights: 'У вас нет прав на выполнение этого действия!'
+    author: 'Автор'
+    comments: 'Комментарии'
+    logout: 'Выйти'
+    login: 'Войти'
+
+  subscriptions:
+    notices:
+      subscribe: 'Вы подписались на обновления к данной публикации'
+      unsubscribe: 'Вы успешно отписались от обновлений к данной публикации'

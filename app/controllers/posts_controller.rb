@@ -1,8 +1,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_post, only: [:show, :edit, :update, :destroy, :publish, :unpublish, :approve,
-                                  :reject, :subscribe, :unsubscribe]
-  before_action :check_owner, only: [:edit, :update, :destroy, :publish, :unpublish, :approve, :reject]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :publish, :unpublish]
+  before_action :check_owner, only: [:edit, :update, :destroy, :publish, :unpublish]
 
   # GET /posts
   def index
@@ -18,43 +17,17 @@ class PostsController < ApplicationController
   end
 
   def pending
-    unless current_user.admin?
       @posts = Post.pending.where(user_id: current_user.id)
-    else
-      @posts = Post.pending.all
-    end
   end
 
   def publish
     @post.pending!
-    redirect_to posts_url, notice: 'Отправлено на модерирование.'
+    redirect_to posts_url, notice: t('posts.noticies.submit_to_moderator')
   end
 
   def unpublish
     @post.draft!
-    redirect_to drafts_posts_url, notice: 'Перемещен в черновики.'
-  end
-
-  def reject
-    @post.draft!
-    NotificationMailer.post_rejected_notification(@post).deliver_now
-    redirect_to pending_posts_url, notice: 'Публикация отклонена.'
-  end
-
-  def approve
-    @post.approved!
-    NotificationMailer.post_approved_notification(@post).deliver_now
-    redirect_to pending_posts_url, notice: 'Публикация одобрена.'
-  end
-
-  def subscribe
-    @post.subscribers << current_user unless @post.subscribers.include?(current_user)
-    redirect_to @post, notice: 'Вы успешно подписались на комментарии.'
-  end
-
-  def unsubscribe
-    @post.subscribers.delete(current_user) unless !@post.subscribers.include?(current_user)
-    redirect_to @post, notice: 'Вы успешно отписались от комментариев.'
+    redirect_to drafts_posts_url, notice: t('posts.noticies.moved_to_drafts')
   end
 
   # GET /posts/1
@@ -75,8 +48,7 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.new(post_params)
     if @post.save
-      @post.subscribers << current_user # unless @post.subscribers.include?(current_user)
-      redirect_to @post, notice: 'Post was successfully created.'
+      redirect_to @post, notice: t('posts.notices.created')
     else
       render :new
     end
@@ -86,7 +58,7 @@ class PostsController < ApplicationController
   def update
     if @post.update(post_params)
       @post.draft!
-      redirect_to @post, notice: 'Post was successfully updated.'
+      redirect_to @post, notice: t('posts.notices.updated')
     else
       render :edit
     end
@@ -95,7 +67,7 @@ class PostsController < ApplicationController
   # DELETE /posts/1
   def destroy
     @post.destroy
-    redirect_to posts_url, notice: 'Post was successfully destroyed.'
+    redirect_to posts_url, notice: t('posts.notices.destroyed')
   end
 
   private
@@ -106,7 +78,7 @@ class PostsController < ApplicationController
 
     def check_owner
       unless current_user.owner_of?(@post)
-        redirect_to posts_path, alert: 'У вас нет прав на выполнение этого действия!'
+        redirect_to posts_path, alert: t('common.not_enough_rights')
       end
     end
 

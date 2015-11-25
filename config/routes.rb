@@ -5,11 +5,10 @@ Rails.application.routes.draw do
     get :pending, on: :collection
     patch :publish, on: :member
     patch :unpublish, on: :member
-    patch :approve, on: :member
-    patch :reject, on: :member
-    patch :subscribe, on: :member
-    patch :unsubscribe, on: :member
+    # patch :subscribe, on: :member
+    # patch :unsubscribe, on: :member
     resources :comments, shallow: true
+    resources :subscriptions_posts, shallow: true, only: [:create, :destroy]
   #  resources :categories, shallow: true
   end
   resources :categories, only: [:show]
@@ -18,6 +17,11 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :categories
     resources :users
+    resources :posts, only: [] do
+      patch :approve, on: :member
+      patch :reject, on: :member
+      get :pending, on: :collection
+    end
     get 'welcome', to: 'welcome#index'
   end
   # The priority is based upon order of creation: first created -> highest priority.

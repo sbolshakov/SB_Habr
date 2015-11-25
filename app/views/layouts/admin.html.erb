@@ -48,21 +48,21 @@
         <a class="navbar-brand" href="/">SbHabr</a>
         <div class="col-lg-9 navbar-collapse collapse navbar-responsive-collapse">
               <ul class="nav navbar-nav">
-                <li><%= link_to "Админка", admin_welcome_path %></li>
-                <li><%= link_to "Категории", admin_categories_path %></li>
-                <li><%= link_to "Пользователи", admin_users_path %></li>
-                <li><%= link_to "Модерирование", pending_posts_path %></li>
+                <li><%= link_to t('.admin'), admin_welcome_path %></li>
+                <li><%= link_to t('.categories'), admin_categories_path %></li>
+                <li><%= link_to t('.users'), admin_users_path %></li>
+                <li><%= link_to t('.moderator'), pending_admin_posts_path %></li>
               </ul>
         </div>
-        <div class="col-lg-3 col-lg-push-7 navbar-collapse collapse navbar-responsive-collapse">
+        <div class="col-lg-3 col-lg-push-5 navbar-collapse collapse navbar-responsive-collapse">
             <% if user_signed_in? %>
                  <ul class="nav navbar-nav">
                      <li><%= link_to current_user.email, destroy_user_session_path, method: :delete %></li>
-                     <li><%= link_to "Выйти", destroy_user_session_path, method: :delete  %></li>
+                     <li><%= link_to t('common.logout'), destroy_user_session_path, method: :delete  %></li>
                  </ul>
             <% else %>
                  <ul class="nav navbar-nav">
-                     <li><%= link_to "Войти", new_user_session_path %></li>
+                     <li><%= link_to t('common.login'), new_user_session_path %></li>
                  </ul>
             <% end %>
         </div>

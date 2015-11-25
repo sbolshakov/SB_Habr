@@ -1,5 +1,5 @@
-<h1>Welcome to SB_Habr Admin</h1>
+<h1><%= t('.welcome') %></h1>
 
-<p style="font-size: 40px" class="button btn-lg"><%= link_to 'Категории', admin_categories_path %></p>
-<p style="font-size: 40px" class="button btn-lg"><%= link_to 'Пользователи', admin_users_path %></p>
-<p style="font-size: 40px" class="button btn-lg"><%= link_to "Модерирование", pending_posts_path %></p>
+<p style="font-size: 40px" class="button btn-lg"><%= link_to t('layouts.admin.categories'), admin_categories_path %></p>
+<p style="font-size: 40px" class="button btn-lg"><%= link_to t('layouts.admin.users'), admin_users_path %></p>
+<p style="font-size: 40px" class="button btn-lg"><%= link_to t('layouts.admin.moderator'), pending_admin_posts_path %></p>

@@ -1,0 +1,16 @@
+ru:
+  admin:
+    categories:
+      edit:
+        editing: 'Редактируем категорию'
+      index:
+        list: 'Список категорий'
+        new: 'Новая категория'
+    welcome:
+      index:
+        welcome: 'Добро пожаловать в админку SBHabr'
+
+
+
+
+

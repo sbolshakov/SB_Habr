@@ -17,4 +17,14 @@ class Post < ActiveRecord::Base
   scope :draft, -> { where(status: 0) }
   scope :pending, -> { where(status: 1) }
 
+  after_create :subscribe_author
+
+  private
+
+  def subscribe_author
+
+    user.subscribe_to(self)
+
+  end
+
 end

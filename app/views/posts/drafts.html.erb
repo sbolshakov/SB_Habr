@@ -1,19 +1,7 @@
-
-
-<h1>
-  <% if @category %>
-      <%= 'Список черновиков категории '+@category.name %>
-  <% else %>
-      Список черновиков
-  <% end %>
-</h1>
+<h1><%= t('.drafts') %></h1>
 
 <% if @posts %>
     <%= render @posts %>
 <% end %>
-
-<br>
-
-<%= link_to 'Новая публикация', new_post_path, class: 'btn btn-large' %>
 
 

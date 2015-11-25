@@ -1,10 +1,8 @@
-
-
 <h1>
   <% if @category %>
-      <%= 'Список публикаций категории '+@category.name %>
+      <%= t('.title_w_category')+' '+@category.name %>
   <% else %>
-      Список публикаций
+      <%= t('.title') %>
   <% end %>
 </h1>
 
@@ -14,5 +12,5 @@
 
 <br>
 
-<%= link_to 'Новая публикация', new_post_path, class: 'btn btn-large' if user_signed_in?  %>
+<%= link_to t('common.new_post'), new_post_path, class: 'btn btn-large' if user_signed_in?  %>
 
