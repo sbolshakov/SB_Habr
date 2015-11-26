@@ -9,7 +9,7 @@ class Admin::BaseController < ApplicationController
   def check_admin
     unless current_user.admin?
       redirect_to root_path,
-                  alert: 'У вас нет прав на просмотр этой страницы'
+                  alert: t('common.not_enough_rights')
     end
   end
 end

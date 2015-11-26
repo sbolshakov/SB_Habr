@@ -9,13 +9,13 @@ class Admin::PostsController < Admin::BaseController
   def reject
     @post.draft!
     NotificationMailer.post_rejected_notification(@post).deliver_now
-    redirect_to pending_admin_posts_url, notice: 'Публикация отклонена.'
+    redirect_to pending_admin_posts_url, notice: t('admin.posts.rejected')
   end
 
   def approve
     @post.approved!
     NotificationMailer.post_approved_notification(@post).deliver_now
-    redirect_to pending_admin_posts_url, notice: 'Публикация одобрена.'
+    redirect_to pending_admin_posts_url, notice: t('admin.posts.approved')
   end
 
   private

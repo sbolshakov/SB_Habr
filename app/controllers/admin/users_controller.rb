@@ -8,7 +8,7 @@ class Admin::UsersController < Admin::BaseController
 
   def destroy
     @user.destroy
-    redirect_to admin_users_path, notice: 'Пользователь был успешно удален'
+    redirect_to admin_users_path, notice: t('admin.users.destroy')
   end
 
   private

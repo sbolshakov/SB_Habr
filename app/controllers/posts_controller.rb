@@ -22,12 +22,12 @@ class PostsController < ApplicationController
 
   def publish
     @post.pending!
-    redirect_to posts_url, notice: t('posts.noticies.submit_to_moderator')
+    redirect_to posts_url, notice: t('posts.notices.submit_to_moderator')
   end
 
   def unpublish
     @post.draft!
-    redirect_to drafts_posts_url, notice: t('posts.noticies.moved_to_drafts')
+    redirect_to drafts_posts_url, notice: t('posts.notices.moved_to_drafts')
   end
 
   # GET /posts/1

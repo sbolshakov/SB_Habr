@@ -1,6 +1,10 @@
 ru:
   admin:
     categories:
+      notices:
+        new_category: 'Создана новая категория'
+        category_update: 'Категория изменена'
+        remove: 'Категория удалена'
       edit:
         editing: 'Редактируем категорию'
       index:
@@ -9,6 +13,13 @@ ru:
     welcome:
       index:
         welcome: 'Добро пожаловать в админку SBHabr'
+
+    posts:
+      approved: 'Публикация одобрена'
+      rejected: 'Публикация отклонена'
+
+    users:
+      destroy: 'Пользователь был успешно удален'
 
 
 
