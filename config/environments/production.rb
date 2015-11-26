@@ -78,7 +78,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.action_mailer.default_url_options = {
-      host: 'app77120565eaef4cf2b594d70243e80936.mailgun.org'
+      host: 'young-stream-4064.herokuapp.com'
   }
 
   config.action_mailer.smtp_settings = {
