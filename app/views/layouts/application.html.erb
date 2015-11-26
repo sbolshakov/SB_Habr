@@ -57,7 +57,7 @@
           </ul>
 
         </div>
-        <div class="col-lg-3 col-lg-push-3 navbar-collapse collapse navbar-responsive-collapse">
+        <div class="col-lg-3 col-lg-push-2 navbar-collapse collapse navbar-responsive-collapse">
             <% if user_signed_in? %>
                  <ul class="nav navbar-nav">
                      <li><%= link_to current_user.email, destroy_user_session_path, method: :delete %></li>
